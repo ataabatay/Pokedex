@@ -1,6 +1,9 @@
-export async function getAllPokemon() {
-    const res = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=151')
-    return res.json()
+export async function pokemonLoader() {
+    const all = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=2000')
+    const allPokemon = await all.json()
+    const types = await fetch(`https://pokeapi.co/api/v2/type/`)
+    const allTypes = await types.json()
+    return { allPokemon, allTypes } 
 }
 
 export async function getSinglePokemon(id) {
@@ -10,7 +13,11 @@ export async function getSinglePokemon(id) {
 
 export async function getPokemonByType(type) {
     const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`)
-    return res.json()
+    const pokemonType = await res.json()
+    const all = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=2000')
+    const pokemonSearch = await all.json()
+
+    return { pokemonType, pokemonSearch }
 }
 
 

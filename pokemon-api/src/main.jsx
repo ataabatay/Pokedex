@@ -8,7 +8,7 @@ import Home from './components/Home'
 import Pokemon from './components/Pokemon.jsx'
 import PokemonSingle from './components/PokemonSingle.jsx'
 import PokemonByType from './components/PokemonByType.jsx'
-import { getAllPokemon, getSinglePokemon, getPokemonByType } from './utils/pokemon.js'
+import { pokemonLoader, getSinglePokemon, getPokemonByType } from './utils/pokemon.js'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       {
         path: '/pokemon',
         element: <Pokemon />,
-        loader: getAllPokemon
+        loader: pokemonLoader
       },
       {
         path: '/pokemon/:id',
