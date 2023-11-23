@@ -7,37 +7,30 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 export default function Pokemon() {
-    // const navigate = useNavigate()
+
     const pokemons = useLoaderData()
 
     const { allPokemon } = pokemons
+    const [pokemon, setPokemon] = useState(allPokemon.results)
     const [filters, setFilters] = useState('')
-    const [shownPokemon, setShownPokemon] = useState(allPokemon.name)
+    const [filteredPokemon, setFilteredPokemon] = useState([])
 
-    // const [ filteredPokemon, setFilteredPokemon ] = useState()
 
     function handleSearch(e) {
-        console.log(e.target.value)
         setFilters(e.target.value)
     }
-
     useEffect(() => {
         const pattern = new RegExp(filters, 'i')
-        const filteredPokemon = allPokemon.results.filter(creature => {
+        const filteredArray = pokemon.filter(creature => {
             return pattern.test(creature.name)
         })
+        setFilteredPokemon(filteredArray)
+    }, [filters, pokemon, setFilteredPokemon])
+   
 
-        setShownPokemon(filteredPokemon)
-        // console.log(shownPokemon)
-
-    }, [filters, allPokemon, setShownPokemon, shownPokemon])
-
-
-
-    // const [ pokemon, setPokemon ] = useState(allPokemon.results)
-
-    // console.log(pokemon)
-
+    const pokemonIndex = pokemon.map((poke) => {
+        return poke.name
+    })
 
 
     return (
@@ -48,7 +41,7 @@ export default function Pokemon() {
             <h1>All Pokemon</h1>
             <Container fluid>
                 <Row>
-                    {allPokemon.results.map((pokemon, idx) => {
+                    {filteredPokemon.map((pokemon, idx) => {
                         if (idx + 1 <= 1017) {
                             return (
                                 <Col
@@ -57,8 +50,8 @@ export default function Pokemon() {
                                     xs={6}
                                     md={4}
                                     lg={3}
-                                    to={`/pokemon/${idx + 1}`}>
-                                    <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idx + 1}.png`} alt={pokemon.name} />
+                                    to={`/pokemon/${pokemon.name}`}>
+                                    <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(pokemon.name) + 1}.png`} alt={pokemon.name} />
                                     <div className="card-body">
                                         <h5 className="card-title">{pokemon.name}</h5>
                                     </div>
