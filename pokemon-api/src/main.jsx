@@ -44,10 +44,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 )
 
 
-// Dropdown on Pokemon.jsx, Link to PokemonByType
-// Each dropdown should change end of API link --> Harcode???
-// Render the filtered by type pokemon
-// Ask how to / can we use two loaders at the same time
+
 // Search bar for all names
 // Styling
 // 
