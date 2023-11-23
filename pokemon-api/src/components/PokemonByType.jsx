@@ -1,5 +1,6 @@
 import { useLoaderData, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -57,7 +58,7 @@ console.log(pokemons)
 
                                     <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(creature.pokemon.name) + 1}.png`} alt={creature.pokemon.name} />
                                     <div className="card-body">
-                                        <h5 className="card-title">{creature.pokemon.name}</h5>
+                                        <h5 className="card-title">{(creature.pokemon.name).toUpperCase().charAt(0) + creature.pokemon.name.slice(1, creature.pokemon.name.length)}</h5>
                                     </div>
                                 </Col>
                             )
@@ -73,7 +74,7 @@ console.log(pokemons)
 
                                     <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(creature.pokemon.name) + 8984}.png`} alt={creature.pokemon.name} />
                                     <div className="card-body">
-                                        <h5 className="card-title">{creature.pokemon.name}</h5>
+                                        <h5 className="card-title">{(creature.pokemon.name).toUpperCase().charAt(0) + creature.pokemon.name.slice(1, creature.pokemon.name.length)}</h5>
                                     </div>
                                 </Col>
                             )

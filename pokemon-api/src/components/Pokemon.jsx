@@ -53,7 +53,7 @@ export default function Pokemon() {
                                     to={`/pokemon/${pokemon.name}`}>
                                     <img className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(pokemon.name) + 1}.png`} alt={pokemon.name} />
                                     <div className="card-body">
-                                        <h5 className="card-title">{pokemon.name}</h5>
+                                        <h5 className="card-title">{(pokemon.name).toUpperCase().charAt(0) + pokemon.name.slice(1, pokemon.name.length)}</h5>
                                     </div>
                                 </Col>
                             )
@@ -68,7 +68,7 @@ export default function Pokemon() {
                                     to={`/pokemon/${idx + 8984}`}>
                                     <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idx + 8984}.png`} alt={pokemon.name} />
                                     <div className="card-body">
-                                        <h5 className="card-title">{pokemon.name}</h5>
+                                        <h5 className="card-title">{(pokemon.name).toUpperCase().charAt(0) + pokemon.name.slice(1, pokemon.name.length)}</h5>
                                     </div>
                                 </Col>
                             )

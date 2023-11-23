@@ -45,6 +45,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 
 
-// Search bar for all names
-// Styling
-// 
+// Make show random pokemon button on home
+// Ask bashar/Sam/iury for advice on search bar for types
+// Fix filter bar for types
