@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-export default function Filter() {
+export default function Filter(setPokemon, pokemons) {
   const [filter, setFilter] = useState([])
   const navigate = useNavigate()
 
-const handleTypeChange = (e) => {
-  navigate(`/pokemon/type/${e.target.value}`)
-}
+  const { pokemonType: pokemon } = pokemons
+
+  const handleTypeChange = (e) => {
+    navigate(`/pokemon/type/${e.target.value}`)
+    setPokemon(pokemon)
+  }
 
   async function getTypes() {
     const response = await fetch('https://pokeapi.co/api/v2/type')
@@ -21,7 +24,7 @@ const handleTypeChange = (e) => {
   useEffect(() => {
     getTypes()
   }, [])
-  
+
   return (
     <select name="dropdown" onChange={handleTypeChange}>
       {filter.map((type, idx) => {
@@ -29,9 +32,4 @@ const handleTypeChange = (e) => {
       })}
     </select>
   )
-
-
-
-
-
 }

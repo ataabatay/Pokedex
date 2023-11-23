@@ -26,7 +26,7 @@ export default function Pokemon() {
         })
         setFilteredPokemon(filteredArray)
     }, [filters, pokemon, setFilteredPokemon])
-   
+
 
     const pokemonIndex = pokemon.map((poke) => {
         return poke.name
@@ -35,10 +35,10 @@ export default function Pokemon() {
 
     return (
         <>
-
-            <Filter />
-            <input name="search" placeholder="Search..." onChange={handleSearch} />
-            <h1>All Pokemon</h1>
+            <div className='filters'>
+                <Filter />
+                <input name="search" placeholder="Search..." onChange={handleSearch} />
+            </div>
             <Container fluid>
                 <Row>
                     {filteredPokemon.map((pokemon, idx) => {
@@ -51,7 +51,7 @@ export default function Pokemon() {
                                     md={4}
                                     lg={3}
                                     to={`/pokemon/${pokemon.name}`}>
-                                    <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(pokemon.name) + 1}.png`} alt={pokemon.name} />
+                                    <img className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(pokemon.name) + 1}.png`} alt={pokemon.name} />
                                     <div className="card-body">
                                         <h5 className="card-title">{pokemon.name}</h5>
                                     </div>
