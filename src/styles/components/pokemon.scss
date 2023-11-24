@@ -68,10 +68,10 @@ nav {
 }
 
 .home-container {
-    margin-top: 40vh;
     .btn {
         height: 40px;
         background-color: black;
+        margin: 10px 10px 0 10px;
         &:hover {
             color: white;
             font-weight: bold;
@@ -80,6 +80,13 @@ nav {
             
         }
     }
+}
+
+#pokedex {
+    height: 300px;
+    width: 400px;
+    margin-top: 80px;
+    margin-bottom: 20px;
 }
 
 #types-container {
@@ -140,3 +147,4 @@ $types: (
         }
     }
 }
+
