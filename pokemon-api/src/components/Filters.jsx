@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
-export default function Filter(setPokemon, pokemons) {
+export default function Filter() {
   const [filter, setFilter] = useState([])
   const navigate = useNavigate()
 
-  const { pokemonType: pokemon } = pokemons
-
   const handleTypeChange = (e) => {
     navigate(`/pokemon/type/${e.target.value}`)
-    setPokemon(pokemon)
   }
 
   async function getTypes() {

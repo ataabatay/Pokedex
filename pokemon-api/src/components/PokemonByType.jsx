@@ -6,46 +6,48 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Filter from './Filters'
 
+
 export default function PokemonByType() {
+
+    // Load in API data
     const pokemons = useLoaderData()
+    // Destructure data
     const { pokemonType, pokemonSearch } = pokemons
 
-console.log(pokemons)
-
+    // Creating states for filter to work and render filtered state
     const [pokemon, setPokemon] = useState(pokemonType.pokemon)
     const [filters, setFilters] = useState('')
     const [filteredPokemon, setFilteredPokemon] = useState(pokemon)
 
-
-    useEffect(() => {
-        const pattern = new RegExp(filters, 'i')
-        const filteredArray = pokemon.filter(creature => {
-            return pattern.test(creature.name)
-        })
-        setFilteredPokemon(filteredArray)
-        console.log(filters)
-    }, [filters, pokemon, setFilteredPokemon])
-
-
-    const pokemonIndex = pokemonSearch.results.map((poke) => {
-        return poke.name
-    })
-
+    // Getting input from search bar
     function handleSearch(e) {
         setFilters(e.target.value)
     }
 
-    console.log(filteredPokemon)
-    console.log(pokemon)
-    console.log(pokemonType.pokemon)
+    // Filter effect rerendering each time search bar input changes
+    useEffect(() => {
+        setPokemon(pokemonType.pokemon)
+        const pattern = new RegExp(filters, 'i')
+        const filteredArray = pokemon.filter(creature => {
+            return pattern.test(creature.pokemon.name)
+        })
+        setFilteredPokemon(filteredArray)
+    }, [filters, pokemon, pokemonType.pokemon])
+
+    // Getting abolsute index for each pokemon
+    const pokemonIndex = pokemonSearch.results.map((poke) => {
+        return poke.name
+    })
 
     return (
         <>
-            <Filter setPokemon={setPokemon} pokemons={pokemons}/>
-            <input name="search" placeholder="Search..." onChange={handleSearch} />
+            <div className='filters'>
+                <Filter />
+                <input name="search" placeholder="Search..." onChange={handleSearch} />
+            </div>
             <Container fluid>
                 <Row>
-                    {pokemonType.pokemon.map(creature => {
+                    {filteredPokemon.map(creature => {
                         if (pokemonIndex.indexOf(creature.pokemon.name) + 1 <= 1017) {
                             return (
                                 <Col
@@ -56,7 +58,7 @@ console.log(pokemons)
                                     lg={3}
                                     to={`/pokemon/${creature.pokemon.name}`}>
 
-                                    <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(creature.pokemon.name) + 1}.png`} alt={creature.pokemon.name} />
+                                    <img className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(creature.pokemon.name) + 1}.png`} alt={creature.pokemon.name} />
                                     <div className="card-body">
                                         <h5 className="card-title">{(creature.pokemon.name).toUpperCase().charAt(0) + creature.pokemon.name.slice(1, creature.pokemon.name.length)}</h5>
                                     </div>
@@ -72,7 +74,7 @@ console.log(pokemons)
                                     lg={3}
                                     to={`/pokemon/${creature.pokemon.name}`}>
 
-                                    <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(creature.pokemon.name) + 8984}.png`} alt={creature.pokemon.name} />
+                                    <img className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(creature.pokemon.name) + 8984}.png`} alt={creature.pokemon.name} />
                                     <div className="card-body">
                                         <h5 className="card-title">{(creature.pokemon.name).toUpperCase().charAt(0) + creature.pokemon.name.slice(1, creature.pokemon.name.length)}</h5>
                                     </div>

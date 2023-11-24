@@ -2,14 +2,8 @@ import { useLoaderData } from 'react-router-dom'
 
 export default function PokemonSingle() {
     const pokemons = useLoaderData()
-    console.log(pokemons)
-
     const { forms: [{ name }], stats, types } = pokemons
-
-
-
-
-
+    
     return (
         <>
             <h1 className="single-name">{(name).toUpperCase().charAt(0) + name.slice(1, name.length)}</h1>

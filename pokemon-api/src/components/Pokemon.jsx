@@ -8,17 +8,22 @@ import Col from 'react-bootstrap/Col'
 
 export default function Pokemon() {
 
+    // Load in API data
     const pokemons = useLoaderData()
-
+    // Destructure data
     const { allPokemon } = pokemons
+
+    // Creating states for filter to work and render filtered state
     const [pokemon, setPokemon] = useState(allPokemon.results)
     const [filters, setFilters] = useState('')
     const [filteredPokemon, setFilteredPokemon] = useState([])
 
-
+    // Getting input from search bar
     function handleSearch(e) {
         setFilters(e.target.value)
     }
+
+    // Filter effect rerendering each time search bar input changes
     useEffect(() => {
         const pattern = new RegExp(filters, 'i')
         const filteredArray = pokemon.filter(creature => {
@@ -27,7 +32,7 @@ export default function Pokemon() {
         setFilteredPokemon(filteredArray)
     }, [filters, pokemon, setFilteredPokemon])
 
-
+    // Getting abolsute index for each pokemon
     const pokemonIndex = pokemon.map((poke) => {
         return poke.name
     })
