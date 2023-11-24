@@ -23,7 +23,7 @@ export default function Filter() {
   }, [])
 
   return (
-    <select name="dropdown" onChange={handleTypeChange}>
+    <select name="dropdown" onClick={handleTypeChange}>
       {filter.map((type, idx) => {
         return <option key={idx} value={type}>{type}</option>
       })}

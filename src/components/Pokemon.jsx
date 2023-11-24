@@ -1,13 +1,14 @@
-import { useLoaderData, Link } from 'react-router-dom'
+import { useLoaderData, Link, useNavigation } from 'react-router-dom'
 import Filter from './Filters'
 import { useEffect, useState } from 'react'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Spinner from 'react-bootstrap/Spinner'
 
 export default function Pokemon() {
-
+    const navigation = useNavigation()
     // Load in API data
     const pokemons = useLoaderData()
     // Destructure data
@@ -71,7 +72,13 @@ export default function Pokemon() {
                                     md={4}
                                     lg={3}
                                     to={`/pokemon/${idx + 8984}`}>
-                                    <img style={{ width: '60px', height: '' }} className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idx + 8984}.png`} alt={pokemon.name} />
+                                    {navigation.state === 'idle' ?
+                                        <img className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idx + 8984}.png`} alt={pokemon.name} /> :
+                                        <div className="centred">
+                                            <Spinner animation='border' />
+                                        </div>
+                                    }
+
                                     <div className="card-body">
                                         <h5 className="card-title">{(pokemon.name).toUpperCase().charAt(0) + pokemon.name.slice(1, pokemon.name.length)}</h5>
                                     </div>
