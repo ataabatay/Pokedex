@@ -32,26 +32,160 @@ Expectations included delivering a live, fully functional React app. Maintain an
 We started off with reading the documentation for several public APIs. Soon after, we settled on working with the Pokemon API to create a Pokedex.
 
 Next was creating **wireframes **and a **route map**.
+
 ### Wireframes
-**Home Page**
 
-**All Pokemon Page**
+![1](https://github.com/ataabatay/Pokedex/assets/25418371/5fa747ee-ed42-4801-bded-4dba2af3bb50)
 
-**Single Pokemon Page**
 
 **Route Map**
 
+![image](https://github.com/ataabatay/Pokedex/assets/25418371/e3f53670-5269-42ad-bca2-e4a27640774c)
 
 ## Build Process
 Throughout the project, we pair-coded while Dan screen-shared.
 
 First item we worked on was to create a router for our app with empty page components and loaders for the relevant pages.
 
+```javascript
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        index: true,
+        element: <Home />
+      },
+      {
+        path: '/pokemon',
+        element: <Pokemon />,
+        loader: pokemonLoader
+      },
+      {
+        path: '/pokemon/:id',
+        element: <PokemonSingle />,
+        loader: async ({ params }) => getSinglePokemon(params.id)
+      },
+      {
+        path: '/pokemon/type/:type',
+        element: <PokemonByType />,
+        loader: async ({ params }) => getPokemonByType(params.type)
+      }
+    ]
+  }
+])
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <RouterProvider router={router} />
+)
+```
+
 Once the router was up and running, the next step was to implement the loader functions and import these. These were simple fetch functions hitting various endpoints, two of which were using params to dynamically hit the endpoint to allow us to fetch unique pokemon or pokemon by type. 
+
+```javascript
+export async function pokemonLoader() {
+    const all = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=2000')
+    const allPokemon = await all.json()
+    const types = await fetch(`https://pokeapi.co/api/v2/type/`)
+    const allTypes = await types.json()
+    return { allPokemon, allTypes } 
+}
+
+export async function getSinglePokemon(id) {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+    return res.json()
+}
+
+export async function getPokemonByType(type) {
+    const res = await fetch(`https://pokeapi.co/api/v2/type/${type}`)
+    const pokemonType = await res.json()
+    const all = await fetch('https://pokeapi.co/api/v2/pokemon/?limit=2000')
+    const pokemonSearch = await all.json()
+
+    return { pokemonType, pokemonSearch }
+}
+```
 
 Final step that brought everything together was to build all page components. 
 
 The all pokemon endpoint simply gave us a name and a url of each pokemon making it difficult to use as we wanted to show images of each Pokemon. Single pokemon endpoint had urls for Pokemon artwork which was indexed by Pokemon ids. We used the Pokemon ids to dynamically use artwork urls to fetch the correct images for each Pokemon. This allowed us to load the images not only on the All Pokemon page but also on the Pokemon by type page.
+
+```javascript
+export default function Pokemon() {
+  const navigation = useNavigation() // Load in API data
+  const pokemons = useLoaderData() // Destructure data
+  const { allPokemon } = pokemons
+
+  // Creating states for filter to work and render filtered state
+  const [pokemon, setPokemon] = useState(allPokemon.results)
+  const [filters, setFilters] = useState('')
+  const [filteredPokemon, setFilteredPokemon] = useState([])
+
+  // Getting input from search bar
+  function handleSearch(e) {
+    setFilters(e.target.value)
+  }
+
+  // Filter effect rerendering each time search bar input changes
+  useEffect(() => {
+    const pattern = new RegExp(filters, 'i')
+    const filteredArray = pokemon.filter(creature => {
+      return pattern.test(creature.name)
+    })
+    setFilteredPokemon(filteredArray)
+  }, [filters, pokemon, setFilteredPokemon])
+
+  // Getting abolsute index for each pokemon
+  const pokemonIndex = pokemon.map((poke) => {
+    return poke.name
+  })
+
+  return (
+    <>
+      <div className='filters'>
+        <Filter />
+        <input name="search" placeholder="Search..." onChange={handleSearch} />
+      </div>
+      <Container fluid>
+        <Row>
+          {filteredPokemon.map((pokemon, idx) => {
+            if (idx + 1 <= 1017) {
+              return (
+                <Col as={Link} key={pokemon.url} className="card" xs={6} md={4} lg={3}
+                  to={`/pokemon/${pokemon.name}`}>
+                  <img className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIndex.indexOf(pokemon.name) + 1}.png`} alt={pokemon.name} />
+                  <div className="card-body">
+                    <h5 className="card-title">{(pokemon.name).toUpperCase().charAt(0) + pokemon.name.slice(1, pokemon.name.length)}</h5>
+                  </div>
+                </Col>
+              )
+            } else if (idx + 1 > 1017 && idx + 1 <= 10275) {
+              return (
+                <Col as={Link} key={pokemon.url} className="card" xs={6} md={4} lg={3}
+                  to={`/pokemon/${idx + 8984}`}>
+                  {navigation.state === 'idle' ?
+                    <img className="card-img-top" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${idx + 8984}.png`} alt={pokemon.name} /> :
+                    <div className="centred">
+                      <Spinner animation='border' />
+                    </div>
+                  }
+                  <div className="card-body">
+                    <h5 className="card-title">{(pokemon.name).toUpperCase().charAt(0) + pokemon.name.slice(1, pokemon.name.length)}</h5>
+                  </div>
+                </Col>
+              )
+            } else {
+              return
+            }
+          })}
+        </Row>
+      </Container>
+    </>
+  )
+}
+```
 
 Once all the components were completed we focused the last hours of the project on design and worked on designs.
 
