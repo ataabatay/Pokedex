@@ -1,66 +1,75 @@
-Project 2: PokemonAPI ReadMe
+# Pokedex (pair project - 48 hours)
+## Description
+This is a paired project completed with [Dan Edmunds](https://github.com/DanEdmunds1). We worked on creating a website using React that uses the [Pokémon API](https://pokeapi.co/) third party public API to fetch all Pokemon, Pokemon by type and a single Pokemon. We displayed the fetched data in our React app using multiple components. The app functions as a basic Pokédex where you can see all the Pokémon throughout all the generations with their original images. You can filter Pokémon by type and also search for a specific one using a search input. This project is my second project for my graduation portfolio from software engineering bootcamp.
 
-# Description
-This is the second project we have completed as part of the Software Engineering Immersive program with General Assembly, taking place between 22/11/23 and 24/11/23. The project brief required that we build a React application that consumes a public API, contains several components, contains a router and is deployed online.
+## Demo Link
+Visit [Pokedex](https://pokemonatadan.netlify.app/).
 
-# Deployment Link
-https://pokemonapi-ga.netlify.app/
+## Getting Started/Code Installation
+1. Access the source code via the 'Clone or download' button,
+2. Run “npm i” inside terminal to install the packages,
+3. Run “npm run dev” inside terminal,
+4. Follow the link.
 
-# Timeframe & Working Team (Pair)
-This was a paired project between Ata Abatay (https://github.com/ataabatay) and Dan Edmunds (https://github.com/DanEdmunds1)
+## Timeframe & Working Team
+We worked in a pair with [Dan Edmunds](https://github.com/DanEdmunds1) for roughly 48 hours to complete the project.
 
-# Technologies Used
-React, HTML, SCSS, Javascript
+## Technologies Used
+### React.js
+Used to create each component and to create a router.
+### Sass
+Employed for styling and layout, ensuring a visually appealing and responsive design.
 
-# Brief
+## Brief
+The project centred on developing a React app consuming a public API. The main goal was to craft a user-friendly experience achieved through well-organised components with loaders using a public API to practise specifically how to fetch data from an API and create React components with loaders.
 
-Overview
-The second project is to **build a React application** that consumes a **public API**.
-​
-Technical Requirements
-Your app must:
-* **Consume a public API** – this could be anything but it must make sense for your project.
-* **Have several components**
-* **The app can have a router** - with several "pages", this is up to you and if it makes sense for your project.
-* **Include wireframes** - that you designed before building the app.
-* **Be deployed online** and accessible to the public (hosted on your public Git Hub, not GA Git Hub!)
+### Requirements and deliverables
+This project requires integration of a React app with a designated public API. The use of components with loaders is expected as well as routing mechanisms if appropriate. The final product needed to be accessible online through GitHub.
 
-Necessary Deliverables:
-* A **working application**, hosted somewhere on the internet
-* A **link to your hosted working app** in the URL section of your Github repo
-* A **git repository hosted on GitHub**, with a link to your hosted project, and frequent commits dating back to the _very beginning_ of the project
-* **A `readme. md` file** with:
- * Explanations of the **technologies** used
-   * A couple of paragraphs about the **general approach you took**
-   * **Installation instructions** for any dependencies
-   * Link to your **wireframes** – sketches of major views/interfaces in your application
-  * Descriptions of any **unsolved problems** or **major hurdles** your team had to overcome
+Expectations included delivering a live, fully functional React app. Maintain an actively updated GitHub repository, complemented by a comprehensive README.md file detailing chosen technologies, the strategic approach, and graphical representations of our design intentions.
 
-# Planning
-We drew a simple wireframe sketch to show the paths and elements we wanted from the different pages of our single-page application. We wanted to include a dropdown to filter through Pokemon by different types, the generation of game they first appeared in, and the region they were from. However, generation and region proved to be very difficult to access given that the endpoint for all Pokemon only included the Pokemon’s name and a URL link to that individual Pokemon’s API. This issue meant that we had to implement a lot of workarounds to display a picture for every Pokemon when displaying all of their names.
-We wanted to create a page that displayed every Pokemon and picture of that Pokemon, with the ability to click on any Pokemon and move to a page that displayed its name, picture, types, and statistics.
+## Planning
+We started off with reading the documentation for several public APIs. Soon after, we settled on working with the Pokemon API to create a Pokedex.
 
-# Build/Code Process
-We started by creating a page for the home screen, a page to display all Pokemon, and a page to display the data of a single Pokemon. Then we created the loaders for each page to fetch from the correct endpoint. After this, we rendered the data from the API to the pages and started to work on the dropdown bar and the search bar. Getting the dropdown bar to work took a lot of our time because we used a different endpoint to filter by a Pokemon type due to the structure of the API. Therefore we made a separate page to display filtered Pokemon which looks almost identical to the page that displays all the Pokemon, but the rendering code looks a lot different.
-We used each type from the API to create the dropdown itself instead of hard-coding it. To display the Pokemon we accessed an object from the Pokemon types endpoint that stored the names of all the Pokemon that possessed each specific type. Though much like the endpoint for all Pokemon, this endpoint did not provide pictures for each Pokemon. To solve this issue for both endpoints we found that the images stored in each individual Pokemon’s API had the same URL link but with a number on the end corresponding to their pokedex index. So looped over every Pokemon and gave them a universal index, when pokemon was mapped over, we used this index to determine the end of the URL for their image, allowing us to show the correct image for each Pokemon.
+Next was creating **wireframes **and a **route map**.
+### Wireframes
+**Home Page**
 
-After the dropdown filter was complete, we got to work on the search bar. It took a while to figure out how to use Regex and the filter array method but after some trial and error, we got it working.
+**All Pokemon Page**
 
-The final task was to style our application using SCSS, which did not take much time but we are glad we kept some time aside for this process. Once we were done we went back and added a button to the home page that will take the user to a random Pokemon’s page.
+**Single Pokemon Page**
 
-# Challenges
-Our biggest challenge was navigating how to use an API that only stored each Pokemon’s name and the URL of their individual API, which contained the images we wanted to display on the all-pokemon page, along with a lot of other useful information. We had to ask for help on using multiple loaders for a page, and once we were told it was possible it took a while to figure out how to properly use and implement this to achieve the results we wanted. But I am very happy with how the application turned out.
-Another challenge we faced was getting our search bar to work. We worked until late on Thursday evening trying to figure it out but then called it a night and said we would try again tomorrow and/or ask for some help. The issue was the state variable we wanted to use to store and update the array of filtered Pokemon for the Pokemon-by-type page was not updating each time the page was filtered using the search bar. So after a few hours being away from my PC, I figured out how to fix this, and also realised we were not selecting each Pokemon’s name correctly. Once these two issues were fixed, the search bar worked as intended which was great to see.
+**Route Map**
 
 
-# Wins
-Coming up with the solutions to our challenges mentioned above was certainly a big win. Another win was that we were very happy with the styling, which I assumed would take longer as I hadn’t used many of its features in the past but it went fairly quickly and smoothly.
+## Build Process
+Throughout the project, we pair-coded while Dan screen-shared.
 
-# Key Learnings/Takeaways
-I feel a lot more confident with using React and APIs in general now that I have more experience working with them. I have a better understanding of how I can use loaders and states to select, manipulate, and render the data from an API that I choose. It was also a great experience to work in a pair for this project. Ata was a pleasure to work with as a person and as a teammate, he was extremely helpful in pointing out errors in the code as I was typing and in coming up with clever solutions to problems we were having. A second set of eyes is really useful when coding and I hope to continue working in a team within this course and when I start my career.
+First item we worked on was to create a router for our app with empty page components and loaders for the relevant pages.
 
-# Bugs
-There are currently bugs in this application that we have identified
+Once the router was up and running, the next step was to implement the loader functions and import these. These were simple fetch functions hitting various endpoints, two of which were using params to dynamically hit the endpoint to allow us to fetch unique pokemon or pokemon by type. 
 
-# Future Improvements
-It would be nice to add more filters to the dropdown tab. We had an idea to create a nested dropdown to allow users to search for Pokemon by type and the generation of game they first appeared in, but we did not have enough time to implement this. We could also include spinners to take the place of the Pokemon images as they load in to create a more responsive design, but again we were limited by the short window of this project.
+Final step that brought everything together was to build all page components. 
+
+The all pokemon endpoint simply gave us a name and a url of each pokemon making it difficult to use as we wanted to show images of each Pokemon. Single pokemon endpoint had urls for Pokemon artwork which was indexed by Pokemon ids. We used the Pokemon ids to dynamically use artwork urls to fetch the correct images for each Pokemon. This allowed us to load the images not only on the All Pokemon page but also on the Pokemon by type page.
+
+Once all the components were completed we focused the last hours of the project on design and worked on designs.
+
+## Challenges
+The biggest challenge was working with the public API we chose which was a lesson. The choice of API dictated what we could achieve substantially. We were not fully aware of what we could and could not do with what we had. It has been a tremendous lesson in making sure to fully read documentation and planning ahead of time to understand what is and is not possible with a public API.
+
+The biggest challenge we faced was that the GET all Pokemon endpoint only had names and urls of Pokemon. So in order to be able to show images for Pokemon on the index page (where we showed all Pokemon) we had to be crafty and do url manipulation to be able to show images we knew existed as urls in GET single Pokemon endpoint.
+
+## Wins
+* Being able to come up with a properly functioning Pokedex in such a short amount of time and with such complex yet insufficient data from the API.
+* Coding together is a massive win on every front. 
+* I also learnt shortcuts and methods from Dan I was not familiar or comfortable to use alone (i.e destructuring).
+
+## Key learnings
+Biggest learning was working in a pair. The experience was completely different than how I worked solo in my first project. I learnt the value of conceding on some ideas on occasions to not lose rhythm and focus, and save time. Coding together was challenging but we had an extremely clear channel of communication with Dan which facilitated the delivery and brought us joy to work together.
+
+## Bugs
+Some Pokemon do not have an image associated with them due to the API not having image urls available for said Pokemon. No other major bug is present given the size of the project.
+
+## Future Improvements
+Due to the way that the API was built we were unable to fetch all Pokemon with rich data beyond their name and a URL linking to their individual pages. Due to this we were unable to create a search input component that could be passed inside other components. This will be looked into to see if any improvement would be possible. Design also left a lot of room for improvement but given the time constraint and the focus of the project this was postponed to a later date.
